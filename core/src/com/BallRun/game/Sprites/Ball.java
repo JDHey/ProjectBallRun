@@ -1,5 +1,7 @@
-package com.BallRun.game;
+package com.BallRun.game.Sprites;
 
+import com.BallRun.game.GameController;
+import com.BallRun.game.SaveFile;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,7 +23,7 @@ public class Ball {
     private static float circumference = (float)(WIDTH*Math.PI);
     private float rotation_speed = -1;
 
-    private boolean dead = false;
+    private boolean isDead = false;
 
     private Sprite sprite;
     private Vector2 velocity = new Vector2();
@@ -134,11 +136,11 @@ public class Ball {
     }
 
     public boolean isDead() {
-        return dead;
+        return isDead;
     }
 
     public void die() {
-        this.dead = true;
+        this.isDead = true;
         setState(STATE_JUMPING);
     }
 

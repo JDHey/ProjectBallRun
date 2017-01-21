@@ -1,34 +1,27 @@
-package com.BallRun.game;
+package com.BallRun.game.Sprites;
 
+import com.BallRun.game.GameController;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Mostly used to make blocks, but can be set to any TextureRegion
- * Created by HeyJD on 9/04/2015.
+ * A sprite that scrolls left and has basic functionality
+ * Created by HeyJD on 20-01-17.
  */
-public class Block {
-    public static final float WIDTH = 128;
-    public static final float HEIGHT = 128;
+public class BasicScrollingSprite {
 
     private Sprite sprite;
-    private boolean isDeadly;
 
-    public Block(float posX, float posY) {
-       this(posX, posY, Assets.block);
+    public BasicScrollingSprite(float posX, float posY) {
+        this(posX, posY, Assets.block);
     }
 
-    public Block(float posX, float posY, TextureRegion tr) {
-        this(posX, posY, tr, false);
-    }
-
-    public Block(float posX, float posY, TextureRegion tr, boolean isDeadly) {
+    public BasicScrollingSprite(float posX, float posY, TextureRegion tr) {
         sprite = new Sprite(tr);
         sprite.setPosition(posX, posY);
-        sprite.setSize(WIDTH, HEIGHT);
-        this.isDeadly = isDeadly;
+        //sprite.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     public void updateMotion(float deltaTime) {
@@ -58,9 +51,9 @@ public class Block {
      */
     public boolean checkCollision(Ball ball) {
         /*
-        if (ball.getX() > this.getX()+WIDTH || ball.getX()+WIDTH < this.getX()) {
+        if (ball.getX() > this.getX()+DEFAULT_WIDTH || ball.getX()+DEFAULT_WIDTH < this.getX()) {
             return false;
-        } else if (ball.getY() > this.getY()+HEIGHT || ball.getY()+HEIGHT < this.getY()){
+        } else if (ball.getY() > this.getY()+DEFAULT_HEIGHT || ball.getY()+DEFAULT_HEIGHT < this.getY()){
             return false;
         } else {
             return true;
@@ -74,7 +67,7 @@ public class Block {
     }
 
     public void setPosition(float x, float y) {
-        sprite.setPosition(x,y);
+        sprite.setPosition(x, y);
     }
 
     public void setSize(float width, float height) {
@@ -85,15 +78,9 @@ public class Block {
         return sprite.getX();
     }
 
-    public float getY() {
-        return sprite.getY();
-    }
+    public float getY() { return sprite.getY(); }
 
     public float getHeight() { return sprite.getHeight(); }
 
     public float getWidth() { return sprite.getWidth(); }
-
-    public boolean isDeadly() {
-        return isDeadly;
-    }
 }

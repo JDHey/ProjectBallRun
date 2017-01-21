@@ -1,6 +1,7 @@
 package com.BallRun.game;
 
 import com.BallRun.game.MenuItems.MenuItem;
+import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -107,7 +108,7 @@ public class CreditsMenu extends InputAdapter implements Screen {
         Vector3 touchCoords = game.cam.unproject(new Vector3(screenX,screenY,0));
 
         if (backButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            backButton.clicked();
+            backButton.playClickedSound();
             game.setScreen(new MainMenu(game));
         }
         backButton.setTouchDown(false);

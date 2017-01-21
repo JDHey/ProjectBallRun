@@ -1,4 +1,4 @@
-package com.BallRun.game;
+package com.BallRun.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -14,17 +14,16 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
  * Created by HeyJD on 9/04/2015.
  */
 public class Assets {
-    public static AssetManager manager;
+    //public static AssetManager manager;
 
-    //I should probably turn a few of these final
     public static Texture gameBackground;
     public static Texture menuBackground;
     public static Texture logoSheet;
     public static Texture buttonSheet;
     public static Texture instructions;
     public static Texture characterSheet;
-    public static Texture TilesSpriteSheet;
-    public static Texture ItemsSpriteSheet;
+    public static Texture tilesSpriteSheet;
+    public static Texture itemsSpriteSheet;
 
     //GameTiles
     public static TextureRegion block;
@@ -33,13 +32,17 @@ public class Assets {
     public static TextureRegion scoreBox;
     public static TextureRegion arrowItem;
 
-    //GameItems
+    //Environment
     public static TextureRegion cloud1;
     public static TextureRegion cloud2;
     public static TextureRegion cloud3;
-    public static TextureRegion spikes;
-    public static TextureRegion muteButton;
-    public static TextureRegion unmuteButton;
+    public static TextureRegion grass;
+    public static TextureRegion bush;
+    public static TextureRegion cactus;
+
+    //GameSprites
+    public static TextureRegion spike;
+    public static TextureRegion coin;
 
     //Custom balls
     public static TextureRegion owl;
@@ -59,6 +62,8 @@ public class Assets {
     public static TextureRegion settingsButton;
     public static TextureRegion resetButton;
     public static TextureRegion backButton;
+    public static TextureRegion muteButton;
+    public static TextureRegion unmuteButton;
 
     //Instruction phrases
     public static TextureRegion instruction1;
@@ -83,22 +88,24 @@ public class Assets {
     public static BitmapFont ComputerFont;
 
     public static void load() {
+        tilesSpriteSheet = loadTexture("images/tiles_spritesheet.png");
+        itemsSpriteSheet = loadTexture("images/items_spritesheet.png");
+        characterSheet = loadTexture("images/ballCharacters.png");
+
         //Backgrounds
-        gameBackground = loadTexture("background.png");
+        gameBackground = loadTexture("images/background.png");
         gameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        menuBackground = loadTexture("bg_castle.png");
+        menuBackground = loadTexture("images/bg_castle.png");
         menuBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         //GameTiles
-        TilesSpriteSheet = loadTexture("tiles_spritesheet.png");
-        block = new TextureRegion(TilesSpriteSheet, 504, 576, 70, 70);
-        blockLeftEdge = new TextureRegion(TilesSpriteSheet, 576, 720, 70,70);
-        blockRightEdge = new TextureRegion(TilesSpriteSheet, 576, 576, 70,70);
-        scoreBox = new TextureRegion(TilesSpriteSheet, 0,432,70,70);
-        arrowItem = new TextureRegion(TilesSpriteSheet, 288, 216, 70, 70);
+        block = new TextureRegion(tilesSpriteSheet, 504, 576, 70, 70);
+        blockLeftEdge = new TextureRegion(tilesSpriteSheet, 576, 720, 70,70);
+        blockRightEdge = new TextureRegion(tilesSpriteSheet, 576, 576, 70,70);
+        scoreBox = new TextureRegion(tilesSpriteSheet, 0,432,70,70);
+        arrowItem = new TextureRegion(tilesSpriteSheet, 288, 216, 70, 70);
 
         //Custom balls
-        characterSheet = loadTexture("ballCharacters.png");
         owl = new TextureRegion(characterSheet, 0, 0, 128, 128);
         pig = new TextureRegion(characterSheet, 128, 0, 128, 128);
         penguin = new TextureRegion(characterSheet, 256, 0, 128, 128);
@@ -106,18 +113,22 @@ public class Assets {
         sheep = new TextureRegion(characterSheet, 128, 128, 128, 128);
         hippo = new TextureRegion(characterSheet, 256, 128, 128, 128);
 
+
+        //Environment
+        cloud1 = new TextureRegion(itemsSpriteSheet,0,0,128,71);
+        cloud2 = new TextureRegion(itemsSpriteSheet,0,73,128,71);
+        cloud3 = new TextureRegion(itemsSpriteSheet,0,146,128,71);
+        grass =  new TextureRegion(itemsSpriteSheet,16,396,37,37);
+        bush = new TextureRegion(itemsSpriteSheet,346,187,70,27);
+        cactus = new TextureRegion(itemsSpriteSheet,376,228,38,58);
+
         //GameItems
-        ItemsSpriteSheet = loadTexture("items_spritesheet.png");
-        cloud1 = new TextureRegion(ItemsSpriteSheet,0,0,128,71);
-        cloud2 = new TextureRegion(ItemsSpriteSheet,0,73,128,71);
-        cloud3 = new TextureRegion(ItemsSpriteSheet,0,146,128,71);
-        spikes = new TextureRegion(ItemsSpriteSheet,347,0,70,70);
-        muteButton = new TextureRegion(ItemsSpriteSheet,513,372,64,64);
-        unmuteButton = new TextureRegion(ItemsSpriteSheet,513, 444,64,64);
+        spike = new TextureRegion(itemsSpriteSheet,347,36,70,35);
+        coin = new TextureRegion(itemsSpriteSheet,288,361,70,70);
 
         //MenuItems
-        logoSheet = loadTexture("logoSheet.png");
-        buttonSheet = loadTexture("buttonSheet.png");
+        logoSheet = loadTexture("images/logoSheet.png");
+        buttonSheet = loadTexture("images/buttonSheet.png");
         logoMain = new TextureRegion(logoSheet, 0, 0, 1024, 256);
         logoShadow = new TextureRegion(logoSheet, 0, 256, 1024, 256);
         playButton = new TextureRegion(buttonSheet, 0, 0, buttonWidth, buttonHeight);
@@ -127,9 +138,11 @@ public class Assets {
         settingsButton = new TextureRegion(buttonSheet, 0, buttonHeight*8, buttonWidth, buttonHeight);
         resetButton = new TextureRegion(buttonSheet, 0, buttonHeight*10, buttonWidth, buttonHeight);
         backButton = new TextureRegion(buttonSheet, 0, buttonHeight*12, buttonWidth, buttonHeight);
+        muteButton = new TextureRegion(itemsSpriteSheet,513,372,64,64);
+        unmuteButton = new TextureRegion(itemsSpriteSheet,513, 444,64,64);
 
         //Instructions
-        instructions = loadTexture("instructions.png");
+        instructions = loadTexture("images/instructions.png");
         instruction1 = new TextureRegion(instructions, 0, 0, instructions.getWidth(), instructions.getHeight()/3);
         instruction2 = new TextureRegion(instructions, 0, (instructions.getHeight()/3), instructions.getWidth(), instructions.getHeight()/3);
         instruction3 = new TextureRegion(instructions, 0, (instructions.getHeight()/3)*2, instructions.getWidth(), instructions.getHeight()/3);
@@ -179,8 +192,8 @@ public class Assets {
         LCDFont.dispose();
         ComputerFont.dispose();
         characterSheet.dispose();
-        TilesSpriteSheet.dispose();
-        ItemsSpriteSheet.dispose();
+        tilesSpriteSheet.dispose();
+        itemsSpriteSheet.dispose();
         menuBackground.dispose();
         clickSound.dispose();
     }

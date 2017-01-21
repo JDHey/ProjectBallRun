@@ -1,9 +1,8 @@
-package com.BallRun.game;
+package com.BallRun.game.Sprites;
 
+import com.BallRun.game.Main;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import java.awt.Point;
 
 /**
  * Makes a cloud at a random position
@@ -13,7 +12,7 @@ import java.awt.Point;
  *
  * Created by HeyJD on 8/06/2015.
  */
-public class Cloud extends Block {
+public class Cloud extends BasicScrollingSprite {
     float speed;
     float alpha;
 

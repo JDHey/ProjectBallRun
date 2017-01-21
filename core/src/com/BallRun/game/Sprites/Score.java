@@ -1,4 +1,4 @@
-package com.BallRun.game;
+package com.BallRun.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -34,8 +34,8 @@ public class Score {
     }
 
     /** Origin is at the top left
-     * sprite.getY()+HEIGHT-((HEIGHT-scoreFont.getCapHeight())/2)
-     * ^ That line puts it in the centre of the HEIGHT of the sprite.
+     * sprite.getY()+DEFAULT_HEIGHT-((DEFAULT_HEIGHT-scoreFont.getCapHeight())/2)
+     * ^ That line puts it in the centre of the DEFAULT_HEIGHT of the sprite.
      * It finds the difference between the height of the font and the height of the sprite,
      * then divides it by 2.
      * @param batch

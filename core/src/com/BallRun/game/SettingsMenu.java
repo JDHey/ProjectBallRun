@@ -4,6 +4,8 @@ import com.BallRun.game.MenuItems.Highscores;
 import com.BallRun.game.MenuItems.LogoItem;
 import com.BallRun.game.MenuItems.MenuItem;
 import com.BallRun.game.MenuItems.MuteItem;
+import com.BallRun.game.Sprites.Assets;
+import com.BallRun.game.Sprites.Score;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -130,17 +132,17 @@ public class SettingsMenu extends InputAdapter implements Screen {
         Vector3 touchCoords = game.cam.unproject(new Vector3(screenX,screenY,0));
 
         if (backButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            backButton.clicked();
+            backButton.playClickedSound();
             game.setScreen(new MainMenu(game));
         } else if (resetButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            resetButton.clicked();
+            resetButton.playClickedSound();
             if (!isScoresRemoved) {
                 highscores.resetScores();
                 isScoresRemoved = true;
             }
         } else if (muteButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
             muteButton.toggleMute();
-            muteButton.clicked(); //Activate after toggling mute
+            muteButton.playClickedSound(); //Activate after toggling mute
         }
         resetButton.setTouchDown(false);
         backButton.setTouchDown(false);

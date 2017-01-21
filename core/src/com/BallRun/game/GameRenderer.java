@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 
 public class GameRenderer implements Screen, InputProcessor {
     Main game;
@@ -19,7 +18,7 @@ public class GameRenderer implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        updateItems(delta);
+        updateItems(Gdx.graphics.getRawDeltaTime());
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -30,10 +29,10 @@ public class GameRenderer implements Screen, InputProcessor {
     }
 
     private void updateItems(float delta) {
-        gc.updateAllItems(delta);
+        gc.updateAll(delta);
 
-        // If dead and fully outside of the screen
-        if (gc.ball.isDead() && gc.ball.getY() < 0-Ball.HEIGHT) {
+        // If game is finished then change to the Gameover Menu
+        if (gc.getCurrentGameState() == GameController.GameState.FINISHED) {
             game.setScreen(new GameoverMenu(game, gc));
         }
     }
@@ -55,16 +54,13 @@ public class GameRenderer implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // Only if on the ground and not dead
-        if (gc.ball.getState() == Ball.STATE_GROUNDED && !gc.ball.isDead()) {
-            gc.ball.setState(Ball.STATE_JUMPING);
-        }
+        gc.touchDown();
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (!gc.ball.isDead()) { gc.ball.setState(Ball.STATE_FALLING); }
+        gc.touchUp();
         return true;
     }
 

@@ -1,6 +1,6 @@
 package com.BallRun.game.MenuItems;
 
-import com.BallRun.game.Assets;
+import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.Main;
 import com.BallRun.game.SaveFile;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

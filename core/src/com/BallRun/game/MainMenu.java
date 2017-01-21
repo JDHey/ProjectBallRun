@@ -2,6 +2,7 @@ package com.BallRun.game;
 
 import com.BallRun.game.MenuItems.LogoItem;
 import com.BallRun.game.MenuItems.MenuItem;
+import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -142,13 +143,13 @@ public class MainMenu extends InputAdapter implements Screen {
         Vector3 touchCoords = game.cam.unproject(new Vector3(screenX,screenY,0));
 
         if (playButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            playButton.clicked();
+            playButton.playClickedSound();
             game.setScreen(new GameRenderer(game));
         } else if (settingsButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            settingsButton.clicked();
+            settingsButton.playClickedSound();
             game.setScreen(new SettingsMenu(game));
         } else if (creditsButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            creditsButton.clicked();
+            creditsButton.playClickedSound();
             game.setScreen(new CreditsMenu(game));
         } else {
             playButton.setTouchDown(false);

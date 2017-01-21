@@ -1,10 +1,10 @@
 package com.BallRun.game;
 
+import com.BallRun.game.Sprites.Score;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /** A static class to load and save.

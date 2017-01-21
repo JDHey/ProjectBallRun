@@ -1,9 +1,8 @@
 package com.BallRun.game.MenuItems;
 
-import com.BallRun.game.Assets;
+import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.SaveFile;
-import com.BallRun.game.Score;
-import com.badlogic.gdx.Gdx;
+import com.BallRun.game.Sprites.Score;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.BallRun.game;
 
+import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -31,6 +31,10 @@ public class Main extends Game {
 
         //Go to main menu
         setScreen(mainMenu);
+    }
+
+    public void render() {
+        super.render(); //important!
     }
 
     @Override

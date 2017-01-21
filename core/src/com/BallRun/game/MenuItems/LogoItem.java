@@ -1,10 +1,9 @@
 package com.BallRun.game.MenuItems;
 
-import com.BallRun.game.Assets;
+import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.Main;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /** Mainly made for looks. This makes the logo bounce up and down.

@@ -4,6 +4,7 @@ import com.BallRun.game.MenuItems.Highscores;
 import com.BallRun.game.MenuItems.MenuItem;
 import com.BallRun.game.MenuItems.LogoItem;
 import com.BallRun.game.MenuItems.MuteItem;
+import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -135,14 +136,14 @@ public class GameoverMenu implements Screen, InputProcessor {
         Vector3 touchCoords = game.cam.unproject(new Vector3(screenX, screenY,0));
 
         if (restartButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            //restartButton.clicked(); Doesn't sound nice on restart
+            //restartButton.playClickedSound(); Doesn't sound nice on restart
             game.setScreen(new GameRenderer(game));
         } else if (mainMenuButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
-            mainMenuButton.clicked();
+            mainMenuButton.playClickedSound();
             game.setScreen(new MainMenu(game));
         } else if (muteButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
             muteButton.toggleMute();
-            muteButton.clicked();
+            muteButton.playClickedSound();
         } else {
                 //Do this for every button with a touchDown
                 restartButton.setTouchDown(false);
