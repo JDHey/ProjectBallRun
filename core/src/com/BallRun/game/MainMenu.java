@@ -22,6 +22,7 @@ public class MainMenu extends InputAdapter implements Screen {
     private MenuItem playButton;
     private MenuItem settingsButton;
     private MenuItem creditsButton;
+    private MenuItem customizeButton;
     private MenuItem instruction1;
     private MenuItem instruction2;
     private MenuItem instruction3;
@@ -43,6 +44,9 @@ public class MainMenu extends InputAdapter implements Screen {
 
         creditsButton =  new MenuItem(Assets.creditsButton, MenuItem.BUTTON_MIDDLE_X, 0-Assets.buttonHeight);
         creditsButton.setGoalY(MenuItem.BUTTON_MIDDLE_Y-(float)(Assets.buttonHeight*3));
+
+        customizeButton =  new MenuItem(Assets.creditsButton, MenuItem.BUTTON_MIDDLE_X, 0-Assets.buttonHeight);
+        customizeButton.setGoalY(MenuItem.BUTTON_MIDDLE_Y+(float)(Assets.buttonHeight*0));
 
         instructionList = new ArrayList<MenuItem>();
         instruction1 = new MenuItem(Assets.instruction1, 0-Assets.instructions.getWidth(), playButton.getGoalY());
@@ -81,6 +85,7 @@ public class MainMenu extends InputAdapter implements Screen {
         playButton.draw(game.batch);
         settingsButton.draw(game.batch);
         creditsButton.draw(game.batch);
+        customizeButton.draw(game.batch);
 
         for(MenuItem item : instructionList) {
             item.draw(game.batch);
@@ -92,6 +97,7 @@ public class MainMenu extends InputAdapter implements Screen {
         playButton.update(deltaTime);
         settingsButton.update(deltaTime);
         creditsButton.update(deltaTime);
+        customizeButton.update(deltaTime);
 
         for(MenuItem item : instructionList) {
             item.update(deltaTime);
@@ -134,6 +140,8 @@ public class MainMenu extends InputAdapter implements Screen {
             settingsButton.setTouchDown(true);
         } else if (creditsButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
             creditsButton.setTouchDown(true);
+        } else if (customizeButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
+            customizeButton.setTouchDown(true);
         }
         return true;
     }
@@ -151,10 +159,14 @@ public class MainMenu extends InputAdapter implements Screen {
         } else if (creditsButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
             creditsButton.playClickedSound();
             game.setScreen(new CreditsMenu(game));
+        }else if (customizeButton.getBoundingRectangle().contains(touchCoords.x, touchCoords.y)) {
+            customizeButton.playClickedSound();
+            game.setScreen(new MainMenu2(game));
         } else {
             playButton.setTouchDown(false);
             settingsButton.setTouchDown(false);
             creditsButton.setTouchDown(false);
+            customizeButton.setTouchDown(false);
         }
 
         return true;

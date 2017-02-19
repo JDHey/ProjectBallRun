@@ -3,22 +3,26 @@ package com.BallRun.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 
 public class GameRenderer implements Screen, InputProcessor {
     Main game;
 
     GameController gc; //GameController
+    FPSLogger fpsLogger;
 
 	public GameRenderer(Main game) {
         this.game = game;
         gc = new GameController();
         Gdx.input.setInputProcessor(this);
+
+        fpsLogger = new FPSLogger();
 	}
 
     @Override
     public void render(float delta) {
-        updateItems(Gdx.graphics.getRawDeltaTime());
+        updateItems(delta);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -26,6 +30,8 @@ public class GameRenderer implements Screen, InputProcessor {
         game.batch.begin();
         gc.drawAllItems(game.batch);
         game.batch.end();
+
+        fpsLogger.log();
     }
 
     private void updateItems(float delta) {
@@ -33,7 +39,7 @@ public class GameRenderer implements Screen, InputProcessor {
 
         // If game is finished then change to the Gameover Menu
         if (gc.getCurrentGameState() == GameController.GameState.FINISHED) {
-            game.setScreen(new GameoverMenu(game, gc));
+            game.setScreen(new GameoverMenu2(game, gc));
         }
     }
 

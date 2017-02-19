@@ -27,7 +27,7 @@ public class BasicScrollingSprite {
     public void updateMotion(float deltaTime) {
         //--Round the input so it gets the same results at the backgroundX source int--
         //Actually, rounding it makes it stutter too much, so I guess I won't
-        sprite.translateX(GameController.blockGravity.x * deltaTime);
+        sprite.translateX(GameController.BLOCK_GRAVITY.x * deltaTime);
     }
 
     public void draw(SpriteBatch batch, float alpha) {

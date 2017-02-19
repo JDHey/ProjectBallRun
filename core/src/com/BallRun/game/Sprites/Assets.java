@@ -1,7 +1,6 @@
 package com.BallRun.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /** The asset class
  * Created by HeyJD on 9/04/2015.
@@ -52,7 +52,7 @@ public class Assets {
     public static TextureRegion sheep;
     public static TextureRegion hippo;
 
-    //MenuItems
+    //MenuItems/UI
     public static TextureRegion logoMain;
     public static TextureRegion logoShadow;
     public static TextureRegion playButton;
@@ -64,6 +64,9 @@ public class Assets {
     public static TextureRegion backButton;
     public static TextureRegion muteButton;
     public static TextureRegion unmuteButton;
+    public static TextureRegion customButton;
+    public static TextureRegion barredBox;
+    public static TextureRegion plainBox;
 
     //Instruction phrases
     public static TextureRegion instruction1;
@@ -86,6 +89,9 @@ public class Assets {
     //Fonts
     public static BitmapFont LCDFont;
     public static BitmapFont ComputerFont;
+
+    //Skins
+    public static Skin skinGreen;
 
     public static void load() {
         tilesSpriteSheet = loadTexture("images/tiles_spritesheet.png");
@@ -140,6 +146,7 @@ public class Assets {
         backButton = new TextureRegion(buttonSheet, 0, buttonHeight*12, buttonWidth, buttonHeight);
         muteButton = new TextureRegion(itemsSpriteSheet,513,372,64,64);
         unmuteButton = new TextureRegion(itemsSpriteSheet,513, 444,64,64);
+        customButton = new TextureRegion(buttonSheet, 0, buttonHeight*14, buttonWidth, buttonHeight);
 
         //Instructions
         instructions = loadTexture("images/instructions.png");
@@ -171,6 +178,8 @@ public class Assets {
 
         generatorQuartz.dispose();
         generatorComputer.dispose();
+
+        skinGreen = new Skin(Gdx.files.internal("skins/ui-green.json"));
     }
 
     public static Texture loadTexture (String file) {
@@ -179,6 +188,10 @@ public class Assets {
 
     public static Sound loadSound (String file) {
         return Gdx.audio.newSound(Gdx.files.internal(file));
+    }
+
+    public static Skin loadSkin (String file) {
+        return new Skin(Gdx.files.internal(file));
     }
 
     public static void dispose() {
@@ -196,5 +209,6 @@ public class Assets {
         itemsSpriteSheet.dispose();
         menuBackground.dispose();
         clickSound.dispose();
+        skinGreen.dispose();
     }
 }

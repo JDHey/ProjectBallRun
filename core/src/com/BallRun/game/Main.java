@@ -12,7 +12,7 @@ public class Main extends Game {
     public static final float CAMERA_WIDTH = 1920;
     public static final float CAMERA_HEIGHT = 1080;
 
-    private MainMenu mainMenu;
+    private MainMenu2 mainMenu;
     public SpriteBatch batch;
     OrthographicCamera cam;
 
@@ -22,7 +22,7 @@ public class Main extends Game {
         SaveFile.load();
 
         batch = new SpriteBatch();
-        mainMenu = new MainMenu(this);
+        mainMenu = new MainMenu2(this);
 
         cam = new OrthographicCamera(CAMERA_WIDTH,CAMERA_HEIGHT);
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
@@ -40,5 +40,6 @@ public class Main extends Game {
     @Override
     public void dispose() {
         Assets.dispose();
+        batch.dispose();
     }
 }

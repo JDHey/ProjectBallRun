@@ -1,11 +1,11 @@
 package com.BallRun.game.MenuItems;
 
-import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.Main;
 import com.BallRun.game.SaveFile;
+import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/** The mute button
+/** @deprecated The mute button
  * Created by HeyJD on 13/06/2015.
  */
 public class MuteItem extends MenuItem {

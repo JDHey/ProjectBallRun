@@ -1,10 +1,11 @@
 package com.BallRun.game.MenuItems;
 
-import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.SaveFile;
+import com.BallRun.game.Sprites.Assets;
 import com.BallRun.game.Sprites.Score;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class Highscores extends MenuItem {
         bitmapFont.draw(batch, TITLE, (getX()+WIDTH/2)-(bitmapFont.getBounds(TITLE).width/2), getY() + HEIGHT - ((HEIGHT - bitmapFont.getCapHeight()) / 2));
     }
 
-    /** Converts the floats to Score objects and loads them into scoreList */
+    /** Converts the floats to Score objects and loads them into scoreArray */
     private void loadScores(float lastScore) {
         scoreList = new ArrayList<Score>();
         float scoreNumber;

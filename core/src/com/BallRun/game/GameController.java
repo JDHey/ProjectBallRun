@@ -22,7 +22,7 @@ public class GameController {
     private GameState currentGameState = GameState.PLAYING;
     public static final float GAME_SPEED = 1014;
 
-    public static final Vector2 blockGravity = new Vector2(-GAME_SPEED, 0);
+    public static final Vector2 BLOCK_GRAVITY = new Vector2(-GAME_SPEED, 0);
 
     private static final float FADE_OUT_SPEED = 0.02f;
     private float drawAlpha = 1;
@@ -176,8 +176,8 @@ public class GameController {
             backgroundSrcX = backgroundSrcX - Assets.gameBackground.getWidth(); //Reset it so it doesn't overflow
         }
 
-        //Because blockGravity.x is negative, I do -=. This makes sure backgroundSrcX is positive
-        backgroundSrcX -= blockGravity.x * deltaTime;
+        //Because BLOCK_GRAVITY.x is negative, I do -=. This makes sure backgroundSrcX is positive
+        backgroundSrcX -= BLOCK_GRAVITY.x * deltaTime;
     }
 
     private void updateScore(float deltaTime) {

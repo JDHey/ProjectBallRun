@@ -3,6 +3,7 @@ package com.BallRun.game.Sprites;
 import com.BallRun.game.Main;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Pool;
 
 /**
  * Makes a cloud at a random position
@@ -12,17 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  *
  * Created by HeyJD on 8/06/2015.
  */
-public class Cloud extends BasicScrollingSprite {
+public class Cloud extends BasicScrollingSprite implements Pool.Poolable {
     float speed;
     float alpha;
 
     public Cloud() {
         super(Main.CAMERA_WIDTH, Main.CAMERA_HEIGHT);
-        setPosition(Main.CAMERA_WIDTH, getRandomPosition());
-        setRegion(getRandomCloud());
-        setSize(400+(float)(Math.random()*80f),222+(float)(Math.random()*60f));
-        speed = (float)Math.random()*1.2f+0.5f;
-        alpha = (float)Math.random()*0.9f+0.3f;
+        reset();
     }
 
     private TextureRegion getRandomCloud() {
@@ -54,5 +51,17 @@ public class Cloud extends BasicScrollingSprite {
     @Override
     public void draw(SpriteBatch batch, float drawAlpha) {
         super.draw(batch, drawAlpha*alpha);
+    }
+
+    /**
+     * Implemented from Poolable. Called when object freed from pool
+     */
+    @Override
+    public void reset() {
+        setPosition(Main.CAMERA_WIDTH, getRandomPosition());
+        setRegion(getRandomCloud());
+        setSize(400+(float)(Math.random()*80f),222+(float)(Math.random()*60f));
+        speed = (float)Math.random()*1.2f+0.5f;
+        alpha = (float)Math.random()*0.9f+0.3f;
     }
 }

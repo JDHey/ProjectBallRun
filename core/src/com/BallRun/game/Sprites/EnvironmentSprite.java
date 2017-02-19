@@ -1,12 +1,13 @@
 package com.BallRun.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Pool;
 
 /**
  * Constructs a random environment sprite
  * Created by HeyJD on 21-01-17.
  */
-public class EnvironmentSprite extends BasicScrollingSprite {
+public class EnvironmentSprite extends BasicScrollingSprite implements Pool.Poolable{
     public enum Sprite { GRASS, BUSH, CACTUS }
 
 
@@ -33,5 +34,9 @@ public class EnvironmentSprite extends BasicScrollingSprite {
                 break;
         }
         return returnTexture;
+    }
+
+    public void reset() {
+        setRegion(getRandomSprite());
     }
 }
