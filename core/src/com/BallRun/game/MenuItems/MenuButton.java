@@ -30,17 +30,11 @@ public class MenuButton extends TextButton {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //screen.getConstructor(Main.class).newInstance(game)
+
                 Screen screen = null;
                 try {
                     screen = (Screen)screenClass.getConstructor(Main.class).newInstance(game);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 playClickedSound();
@@ -50,7 +44,7 @@ public class MenuButton extends TextButton {
     }
 
     public static void playClickedSound() {
-        if (!SaveFile.isMute) {
+        if (!SaveFile.isMute()) {
             Assets.clickSound.play();
         }
     }

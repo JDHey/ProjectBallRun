@@ -39,6 +39,8 @@ public class Assets {
     public static TextureRegion grass;
     public static TextureRegion bush;
     public static TextureRegion cactus;
+    public static TextureRegion water;
+    public static TextureRegion lava;
 
     //GameSprites
     public static TextureRegion spike;
@@ -65,16 +67,11 @@ public class Assets {
     public static TextureRegion muteButton;
     public static TextureRegion unmuteButton;
     public static TextureRegion customButton;
-    public static TextureRegion barredBox;
-    public static TextureRegion plainBox;
 
     //Instruction phrases
     public static TextureRegion instruction1;
     public static TextureRegion instruction2;
     public static TextureRegion instruction3;
-
-    //Highscore banner
-    public static TextureRegion highscoreBanner;
 
     //Sounds
     public static Music music;
@@ -127,6 +124,8 @@ public class Assets {
         grass =  new TextureRegion(itemsSpriteSheet,16,396,37,37);
         bush = new TextureRegion(itemsSpriteSheet,346,187,70,27);
         cactus = new TextureRegion(itemsSpriteSheet,376,228,38,58);
+        water = new TextureRegion(tilesSpriteSheet, 432, 576, 70, 70);
+        lava = new TextureRegion(tilesSpriteSheet, 432, 706, 70, 70);
 
         //GameItems
         spike = new TextureRegion(itemsSpriteSheet,347,36,70,35);
@@ -179,7 +178,7 @@ public class Assets {
         generatorQuartz.dispose();
         generatorComputer.dispose();
 
-        skinGreen = new Skin(Gdx.files.internal("skins/ui-green.json"));
+        skinGreen = loadSkin("skins/ui-green.json");
     }
 
     public static Texture loadTexture (String file) {

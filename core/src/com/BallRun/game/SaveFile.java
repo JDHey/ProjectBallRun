@@ -1,12 +1,10 @@
 package com.BallRun.game;
 
-import com.BallRun.game.Sprites.Score;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
-import java.util.List;
-
-/** A static class to load and save.
+/**
+ * A static class to load and save.
  * I only want to load once at the start of the game, otherwise it's twitchy everytime it loads.
  * Created by HeyJD on 29/04/2015.
  */
@@ -15,8 +13,8 @@ public class SaveFile {
     private static final String SAVE_FILE_NAME = ".ballrun";
     public static final int SCORE_LIMIT = 5; //The limit of the amount of high scores to save
 
-    public static int[] scoreArray = {0,0,0,0,0};
-    public static boolean isMute = false;
+    private static int[] scoreArray = {0, 0, 0, 0, 0};
+    private static boolean isMute = false;
 
     public static void load() {
         try {
@@ -30,7 +28,7 @@ public class SaveFile {
                 isMute = Boolean.parseBoolean(strings[0]);
 
                 for (int i = 0; i < SCORE_LIMIT; i++) {
-                    scoreArray[i] = Integer.parseInt(strings[i+1]);
+                    scoreArray[i] = Integer.parseInt(strings[i + 1]);
                 }
             }
         } catch (Throwable e) {
@@ -40,29 +38,9 @@ public class SaveFile {
         }
     }
 
-    /** Parse in the scores to save
-     * @param scoreList
-     */
-    public static void save(List<Score> scoreList) {
-        try {
-            int score;
-            FileHandle fileHandle = Gdx.files.local(SAVE_FILE_NAME);
-
-            //First put a line without appending to replace the file
-            fileHandle.writeString(Boolean.toString(isMute)+"\n", false);
-
-            for (int i = 0; i < SCORE_LIMIT; i++) {
-                score = (int)scoreList.get(i).getScore();
-                fileHandle.writeString(Float.toString(score)+"\n", true);
-                scoreArray[i] = score;
-            }
-        } catch (Throwable e) {
-            Gdx.app.log(TAG, "Couldn't save file");
-            Gdx.app.log(TAG, e.getMessage());
-        }
-    }
-
-    /** Pass in the scores to save
+    /**
+     * Used to save new scores
+     *
      * @param intScoreArray
      */
     public static void save(int[] intScoreArray) {
@@ -71,11 +49,11 @@ public class SaveFile {
             FileHandle fileHandle = Gdx.files.local(SAVE_FILE_NAME);
 
             //First put a line without appending to replace the file
-            fileHandle.writeString(Boolean.toString(isMute)+"\n", false);
+            fileHandle.writeString(Boolean.toString(isMute) + "\n", false);
 
             for (int i = 0; i < SCORE_LIMIT; i++) {
                 score = Math.round(intScoreArray[i]);
-                fileHandle.writeString(Float.toString(score)+"\n", true);
+                fileHandle.writeString(String.valueOf(score) + "\n", true);
                 scoreArray[i] = score;
             }
         } catch (Throwable e) {
@@ -84,16 +62,18 @@ public class SaveFile {
         }
     }
 
-    /** Used for saving the mute variable */
+    /**
+     * Used for saving the mute variable
+     */
     public static void save() {
         try {
             FileHandle fileHandle = Gdx.files.local(SAVE_FILE_NAME);
 
             //First put a line without appending to replace the file
-            fileHandle.writeString(Boolean.toString(isMute)+"\n", false);
+            fileHandle.writeString(Boolean.toString(isMute) + "\n", false);
 
             for (int i = 0; i < SCORE_LIMIT; i++) {
-                fileHandle.writeString(Float.toString(scoreArray[i])+"\n", true);
+                fileHandle.writeString(String.valueOf(scoreArray[i]) + "\n", true);
             }
         } catch (Throwable e) {
             Gdx.app.log(TAG, "Couldn't save file");
@@ -101,15 +81,30 @@ public class SaveFile {
         }
     }
 
-    /** Passes an empty array of scores into a save (overwrites existing file if one already exists)*/
+    /**
+     * Passes an empty array of scores into a save (overwrites existing file if one already exists)
+     */
     public static void createFile() {
         /*List<Score> scoreList = new ArrayList<Score>();
         for (int i=0; i<SCORE_LIMIT;i++) {
             scoreList.add(new Score(0,0));
         }*/
 
-        int[] newScoreArray = {0,0,0,0,0};
+        int[] newScoreArray = {0, 0, 0, 0, 0};
         save(newScoreArray);
+    }
+
+
+    public static int[] getScoreArray() {
+        return scoreArray;
+    }
+
+    public static boolean isMute() {
+        return isMute;
+    }
+
+    public static void setMute(boolean isMute) {
+        SaveFile.isMute = isMute;
     }
 
 }

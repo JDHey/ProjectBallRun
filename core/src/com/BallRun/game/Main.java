@@ -1,5 +1,6 @@
 package com.BallRun.game;
 
+import com.BallRun.game.Screens.MainMenu;
 import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,17 +13,18 @@ public class Main extends Game {
     public static final float CAMERA_WIDTH = 1920;
     public static final float CAMERA_HEIGHT = 1080;
 
-    private MainMenu2 mainMenu;
+    private MainMenu mainMenu;
     public SpriteBatch batch;
     OrthographicCamera cam;
 
     @Override
     public void create() {
+        //Load assets and save first
         Assets.load();
         SaveFile.load();
 
         batch = new SpriteBatch();
-        mainMenu = new MainMenu2(this);
+        mainMenu = new MainMenu(this);
 
         cam = new OrthographicCamera(CAMERA_WIDTH,CAMERA_HEIGHT);
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);

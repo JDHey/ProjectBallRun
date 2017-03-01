@@ -6,6 +6,7 @@ import com.BallRun.game.Sprites.Block;
 import com.BallRun.game.Sprites.Cloud;
 import com.BallRun.game.Sprites.EnvironmentSprite;
 import com.BallRun.game.Sprites.Spike;
+import com.BallRun.game.Sprites.Water;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -30,10 +31,14 @@ public class GameLevelGeneration {
     private float chanceToSpawnIncreaser = 0.05f;
     private float chanceToSpawnEnvironmentSprite = 0.1f; //From 0 to 1;
 
+    private static final float WATER_WAVE_INTERVAL = 2f; //In seconds
+    private float waterWaveTimer = 0f;
+
     private List<Block> floor;
     private List<Spike> spikes;
     private List<Cloud> clouds;
     private List<EnvironmentSprite> environmentSprites;
+    private List<Water> waterSprites;
     private Queue<BasicScrollingSprite> queueOfCollidingSprites;
     private float cloudSpawnTimer = 0;
 
@@ -69,22 +74,38 @@ public class GameLevelGeneration {
         }
     };
 
+    // water pool.
+    private final Pool<Water> waterPool = new Pool<Water>() {
+        @Override
+        protected Water newObject() {
+            return new Water(0, 0);
+        }
+    };
+
     public GameLevelGeneration() {
         this.floor = new ArrayList<Block>(); //I Should probably use a Queue
         this.spikes = new ArrayList<Spike>(); //Any deadly sprite
         this.clouds = new ArrayList<Cloud>();
         this.environmentSprites = new ArrayList<EnvironmentSprite>();
         this.queueOfCollidingSprites = new LinkedList<BasicScrollingSprite>();
+        this.waterSprites = new ArrayList<Water>();
 
         generateStart();
     }
 
     private void generateStart() {
         Block block;
+        Water water;
         for(int i=0; i<= Main.CAMERA_WIDTH; i += Block.DEFAULT_WIDTH) {
+            //Add floor
             block = blockPool.obtain();
             block.setPosition(i,0);
             floor.add(block);
+
+            //Add water
+            water = waterPool.obtain();
+            water.setPosition(i, 0);
+            waterSprites.add(water);
         }
         EnvironmentSprite arrowSprite = environmentPool.obtain();
         arrowSprite.setPosition(1000,128);
@@ -98,6 +119,7 @@ public class GameLevelGeneration {
             updateSpikes(deltaTime, ballBoundingRectangle);
             updateClouds(deltaTime);
             updateEnvironmentSprites(deltaTime);
+            updateWaterSprites(deltaTime);
         }
     }
 
@@ -109,6 +131,10 @@ public class GameLevelGeneration {
 
             for (EnvironmentSprite sprite : environmentSprites) {
                 sprite.draw(batch, drawAlpha);
+            }
+
+            for (BasicScrollingSprite block : waterSprites) {
+                block.draw(batch, drawAlpha);
             }
 
             for (Block block : floor) {
@@ -141,7 +167,7 @@ public class GameLevelGeneration {
         // Called outside of the loop because you can't modify the list while it is iterating
         removeBlocks(removeBlockList);*/
 
-        // Update block, while freeing block too far left returning them to the pool:
+        // Update block, while freeing blocks too far left returning them to the pool:
         Block block;
         int len = floor.size();
         for (int i = len; --i >= 0;) {
@@ -222,13 +248,38 @@ public class GameLevelGeneration {
         }
     }
 
-    private void removeBlocks(List<Block> list) {
-        for (Block block : list) {
-            floor.remove(block);
-            addBlock();
+    private void updateWaterSprites(float deltaTime) {
+        Water water;
+        int len = waterSprites.size();
+        for (int i = len; --i >= 0; ) {
+            water = waterSprites.get(i);
+            water.updateMotion(deltaTime);
+
+            //Reset the region to update the flip
+            water.setRegion(Assets.water);
+
+            //Free blocks if outside of screen
+            if (water.getX() < 0 - Water.DEFAULT_WIDTH) {
+                waterSprites.remove(water);
+                waterPool.free(water);
+                addWaterSprite();
+            }
         }
+
+        if (waterWaveTimer > WATER_WAVE_INTERVAL) {
+            waterWaveTimer = 0;
+
+            Assets.water.flip(true, false);
+        }
+
+        waterWaveTimer += deltaTime;
     }
 
+    private void addWaterSprite() {
+        Water water = waterPool.obtain();
+        water.setPosition(waterSprites.get(waterSprites.size() - 1).getX() + Water.DEFAULT_WIDTH, 0);
+        waterSprites.add(water);
+    }
 
     /** Add a block to the end of the list and align it
      *  It uses pseudo randomness.

@@ -24,6 +24,7 @@ public class Ball {
     private float rotation_speed = -1;
 
     private boolean isDead = false;
+    private float invincibleDuration = 0;
 
     private Sprite sprite;
     private Vector2 velocity = new Vector2();
@@ -75,6 +76,10 @@ public class Ball {
 
         rotate(deltaTime);
         sprite.translate(velocity.x * deltaTime, velocity.y * deltaTime);
+
+        if (isInvincible()) {
+            invincibleDuration -= deltaTime;
+        }
     }
 
     private void rotate(float deltaTime) {
@@ -105,7 +110,7 @@ public class Ball {
 
     //I don't use sprite.getBoundingRectangle() because that rotates with the ball, I don't want that
     public Rectangle getBoundingRectangle() {
-        return new Rectangle(getX(),getY(),WIDTH,HEIGHT);
+        return new Rectangle(getX(), getY(), WIDTH, HEIGHT);
     }
 
     /** Could turn the STATES into a class to force the input later. */
@@ -117,7 +122,7 @@ public class Ball {
                 ball_state = STATE_GROUNDED;
                 break;
             case STATE_JUMPING:
-                if (!SaveFile.isMute) {
+                if (!SaveFile.isMute()) {
                     Assets.jumpSound.play(Assets.jumpSoundVolume);
                 }
                 velocity.y = GameController.BALL_INITIAL_JUMP_VELOCITY;
@@ -154,5 +159,18 @@ public class Ball {
 
     public float getY() {
         return sprite.getY();
+    }
+
+    public boolean isInvincible() {
+        return (invincibleDuration > 0);
+    }
+
+    /**
+     * Makes the ball invincible for the specified duration in seconds
+     *
+     * @param durationInSeconds
+     */
+    public void setInvincible(float durationInSeconds) {
+        this.invincibleDuration = durationInSeconds;
     }
 }

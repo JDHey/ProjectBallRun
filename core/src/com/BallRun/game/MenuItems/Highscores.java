@@ -2,99 +2,100 @@ package com.BallRun.game.MenuItems;
 
 import com.BallRun.game.SaveFile;
 import com.BallRun.game.Sprites.Assets;
-import com.BallRun.game.Sprites.Score;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-/** A type of menu item which displays a list of high scores
- * Created by HeyJD on 27/04/2015.
+/**
+ * Shows a list of high scores
+ * Created by HeyJD on 03-02-17.
  */
-public class Highscores extends MenuItem {
-    public static final float WIDTH = 374;
-    public static final float HEIGHT = Score.HEIGHT*1;
-    private static final float PADDING = 0;
+public class Highscores extends Table {
     private static final String TITLE = "Highscores";
+    TextureRegion topBoxTexture = Assets.skinGreen.getAtlas().findRegion("button_03");
+    Label titleLabel = new Label(TITLE, Assets.skinGreen);
 
-    List<Score> scoreList;
-    boolean newHighscore = false;
-    BitmapFont bitmapFont;
+    int[] scoreArray = new int[SaveFile.SCORE_LIMIT];
 
-    public Highscores(float goalX, float goalY, Score lastScore) {
-        super(Assets.scoreBox, 0 - WIDTH, goalY, goalX, goalY);
-        setSize(WIDTH,HEIGHT);
-        loadScores(lastScore.getScore());
+    public Highscores(int x, int y) {
+        this(x,y,-1);
+    }
 
-        bitmapFont = Assets.ComputerFont;
-        bitmapFont.setScale(1.1f);
+    public Highscores(int x, int y, int newScore) {
+        super(Assets.skinGreen);
+        this.setPosition(x, y);
+        init(newScore);
+    }
+
+    /**
+     * Initialises the highscores
+     * @param newScore
+     */
+    private void init(int newScore) {
+        this.clear(); //Clears all children
+
+        //Load
+        if (loadScores(newScore)) {
+            SaveFile.save(scoreArray); //Save if new highscore
+        }
+
+        this.add(titleLabel).height(ScoreLabel.BACKGROUND_HEIGHT);
+        this.row();
+        for(int i : scoreArray) {
+            ScoreLabel score = new ScoreLabel(String.valueOf(i));
+            this.add(score).height(ScoreLabel.BACKGROUND_HEIGHT).padTop(0);
+            this.row();
+        }
+        this.pack();
     }
 
     @Override
-    public void update(float delta, int speed) {
-        super.update(delta, speed);
-        int incremeter = Score.HEIGHT-20;
-        int i = incremeter;
-
-        //Updates the list from the top down
-        for (Score score : scoreList) {
-            score.setPosition(getX()+PADDING, getY()-i);
-            i += incremeter;
-        }
-
-        //Only saves once
-        if (newHighscore) {
-            SaveFile.save(scoreList);
-            newHighscore = false;
-        }
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(topBoxTexture, getX()-15, getTop()- titleLabel.getHeight(), titleLabel.getWidth()+30, ScoreLabel.BACKGROUND_HEIGHT);
+        super.draw(batch,parentAlpha);
     }
 
-    @Override
-    public void draw(SpriteBatch batch) {
-        super.draw(batch);
+    /**
+     * Loads the high scores and inserts a new one if possible
+     * @param lastScore
+     * @return newHighScore
+     */
+    private boolean loadScores(int lastScore) {
+        boolean newHighScore = false;
+        int[] saveFileArray = SaveFile.getScoreArray();
+        int[] newScoreArray = new int[saveFileArray.length + 1];
 
-        for (Score score : scoreList) {
-            score.draw(batch);
+        //Take first five ints from original array
+        for (int i = 0; i < saveFileArray.length; i++) {
+            newScoreArray[i] = saveFileArray[i];
         }
-        bitmapFont.draw(batch, TITLE, (getX()+WIDTH/2)-(bitmapFont.getBounds(TITLE).width/2), getY() + HEIGHT - ((HEIGHT - bitmapFont.getCapHeight()) / 2));
-    }
 
-    /** Converts the floats to Score objects and loads them into scoreArray */
-    private void loadScores(float lastScore) {
-        scoreList = new ArrayList<Score>();
-        float scoreNumber;
-        Score score;
-        for (int i=0; i<SaveFile.SCORE_LIMIT; i++) {
-            scoreNumber = SaveFile.scoreArray[i];
-            if (scoreNumber < lastScore && !newHighscore) {
-                score = new Score(getX(), getY(), lastScore);
-                score.setSize(WIDTH, score.getSprite().getHeight());
-                scoreList.add(score);
-                newHighscore = true;
-            }
+        newScoreArray[saveFileArray.length] = lastScore; //Add last score
+        Arrays.sort(newScoreArray); //Sort array
 
-            //This is to stop it from adding one too many after adding a new highScore
-            if (!newHighscore || i<SaveFile.SCORE_LIMIT-1) {
-                score = new Score(getX(), getY(), scoreNumber);
-                score.setSize(WIDTH, score.getSprite().getHeight());
-                scoreList.add(score);
-            }
+        //Keep in mind the array is now sorted with lowest score at index 0.
+
+        //Add first five ints back to original array
+        //They are added in reverse due to sort sorting in reverse
+        for (int i = 0; i < saveFileArray.length; i++) {
+            this.scoreArray[i] = newScoreArray[saveFileArray.length - i];
         }
+
+        //If the first score is not the sixth, then there's a new high score
+        if (newScoreArray[0] != lastScore) {
+            newHighScore = true;
+        }
+
+        return newHighScore;
     }
 
     /** Resets the high scores */
     public void resetScores() {
         SaveFile.createFile();
-        //dispose(); Calling it makes it crash
-        loadScores(-1);
+        init(-1);
     }
-
-    public void dispose() {
-        for (Score score : scoreList) {
-            score.dispose();
-        }
-    }
-
 
 }

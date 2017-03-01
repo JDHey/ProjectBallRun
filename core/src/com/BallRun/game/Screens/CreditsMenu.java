@@ -1,5 +1,6 @@
-package com.BallRun.game;
+package com.BallRun.game.Screens;
 
+import com.BallRun.game.Main;
 import com.BallRun.game.MenuItems.MenuButton;
 import com.BallRun.game.Sprites.Assets;
 import com.badlogic.gdx.Gdx;
@@ -11,10 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-/** The credits menu
+/**
+ * The credits menu
  * Created by HeyJD on 01-02-17.
  */
-public class CreditsMenu2 implements Screen {
+public class CreditsMenu implements Screen {
     private static final String TITLE = "Credits";
     private static final String BODY = "All textures and sounds are under public domain \n All programming  -  Jayden Leslie";
 
@@ -24,7 +26,7 @@ public class CreditsMenu2 implements Screen {
     Label creditTitleLabel;
     Label creditBodyLabel;
 
-    public CreditsMenu2(Main game) {
+    public CreditsMenu(Main game) {
         this.game = game;
     }
 
@@ -39,7 +41,8 @@ public class CreditsMenu2 implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {    }
+    public void resize(int width, int height) {
+    }
 
     @Override
     public void show() {
@@ -55,9 +58,9 @@ public class CreditsMenu2 implements Screen {
         creditBodyLabel.setAlignment(Align.center);
         creditBodyLabel.setFontScale(1.5f);
 
-        backButton = new MenuButton("Back", MainMenu2.class, game);
+        backButton = new MenuButton("Back", MainMenu.class, game);
         Image backImage = new Image(Assets.menuBackground);
-        backImage.setSize(Main.CAMERA_WIDTH,Main.CAMERA_HEIGHT);
+        backImage.setSize(Main.CAMERA_WIDTH, Main.CAMERA_HEIGHT);
 
         table.setFillParent(true);
         table.add(creditTitleLabel).height(128);
@@ -71,13 +74,16 @@ public class CreditsMenu2 implements Screen {
     }
 
     @Override
-    public void hide() {    }
+    public void hide() {
+    }
 
     @Override
-    public void pause() {    }
+    public void pause() {
+    }
 
     @Override
-    public void resume() {    }
+    public void resume() {
+    }
 
     @Override
     public void dispose() {

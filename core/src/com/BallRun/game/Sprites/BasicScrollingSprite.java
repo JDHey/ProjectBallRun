@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
  * Created by HeyJD on 20-01-17.
  */
 public class BasicScrollingSprite {
+    public static final float DEFAULT_WIDTH = 128;
+    public static final float DEFAULT_HEIGHT = 128;
 
     private Sprite sprite;
 
@@ -25,8 +27,6 @@ public class BasicScrollingSprite {
     }
 
     public void updateMotion(float deltaTime) {
-        //--Round the input so it gets the same results at the backgroundX source int--
-        //Actually, rounding it makes it stutter too much, so I guess I won't
         sprite.translateX(GameController.BLOCK_GRAVITY.x * deltaTime);
     }
 
@@ -79,8 +79,4 @@ public class BasicScrollingSprite {
     }
 
     public float getY() { return sprite.getY(); }
-
-    public float getHeight() { return sprite.getHeight(); }
-
-    public float getWidth() { return sprite.getWidth(); }
 }
