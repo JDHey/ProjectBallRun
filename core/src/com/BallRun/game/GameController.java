@@ -5,7 +5,6 @@ import com.BallRun.game.Sprites.Ball;
 import com.BallRun.game.Sprites.BasicScrollingSprite;
 import com.BallRun.game.Sprites.Block;
 import com.BallRun.game.Sprites.Spike;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -157,9 +156,6 @@ public class GameController {
      */
     public void touchUp() {
         if (currentGameState == GameState.READY || currentGameState == GameState.PAUSED) {
-            //Start game
-            Gdx.app.log("GameController", "Starting game");
-
             startGame();
         } else if (currentGameState == GameState.PLAYING) {
             if (!ball.isDead()) {
@@ -169,6 +165,8 @@ public class GameController {
     }
 
     private void startGame() {
+        Log.i("GameController", "Starting game");
+
         if (!SaveFile.isMute()) {
             Assets.music.play();
         }

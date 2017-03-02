@@ -32,9 +32,8 @@ public class SaveFile {
                 }
             }
         } catch (Throwable e) {
-            Gdx.app.log(TAG, "Couldn't retrieve file");
-            Gdx.app.log(TAG, e.getMessage());
-
+            Log.e(TAG, "Couldn't retrieve file");
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -57,8 +56,8 @@ public class SaveFile {
                 scoreArray[i] = score;
             }
         } catch (Throwable e) {
-            Gdx.app.log(TAG, "Couldn't save file");
-            Gdx.app.log(TAG, e.getMessage());
+            Log.e(TAG, "Couldn't save file");
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -76,8 +75,8 @@ public class SaveFile {
                 fileHandle.writeString(String.valueOf(scoreArray[i]) + "\n", true);
             }
         } catch (Throwable e) {
-            Gdx.app.log(TAG, "Couldn't save file");
-            Gdx.app.log(TAG, e.getMessage());
+            Log.e(TAG, "Couldn't save file");
+            Log.e(TAG, e.getMessage());
         }
     }
 

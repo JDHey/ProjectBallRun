@@ -1,6 +1,7 @@
 package com.BallRun.game.Screens;
 
 import com.BallRun.game.GameController;
+import com.BallRun.game.Log;
 import com.BallRun.game.Main;
 import com.BallRun.game.MenuItems.ScoreLabel;
 import com.BallRun.game.Sprites.Assets;
@@ -53,7 +54,9 @@ public class GameRenderer extends InputAdapter implements Screen {
         gc.drawAllItems(game.batch);
         game.batch.end();
 
-        fpsLogger.log();
+        if (Log.DEBUG) {
+            fpsLogger.log();
+        }
         stage.act(delta);
         stage.draw();
     }

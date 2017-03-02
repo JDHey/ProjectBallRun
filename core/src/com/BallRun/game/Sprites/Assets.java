@@ -10,7 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-/** The asset class
+/**
+ * The asset class
  * Created by HeyJD on 9/04/2015.
  */
 public class Assets {
@@ -19,8 +20,6 @@ public class Assets {
     public static Texture gameBackground;
     public static Texture menuBackground;
     public static Texture logoSheet;
-    public static Texture buttonSheet;
-    public static Texture instructions;
     public static Texture characterSheet;
     public static Texture tilesSpriteSheet;
     public static Texture itemsSpriteSheet;
@@ -103,9 +102,9 @@ public class Assets {
 
         //GameTiles
         block = new TextureRegion(tilesSpriteSheet, 504, 576, 70, 70);
-        blockLeftEdge = new TextureRegion(tilesSpriteSheet, 576, 720, 70,70);
-        blockRightEdge = new TextureRegion(tilesSpriteSheet, 576, 576, 70,70);
-        scoreBox = new TextureRegion(tilesSpriteSheet, 0,432,70,70);
+        blockLeftEdge = new TextureRegion(tilesSpriteSheet, 576, 720, 70, 70);
+        blockRightEdge = new TextureRegion(tilesSpriteSheet, 576, 576, 70, 70);
+        scoreBox = new TextureRegion(tilesSpriteSheet, 0, 432, 70, 70);
         arrowItem = new TextureRegion(tilesSpriteSheet, 288, 216, 70, 70);
 
         //Custom balls
@@ -118,40 +117,23 @@ public class Assets {
 
 
         //Environment
-        cloud1 = new TextureRegion(itemsSpriteSheet,0,0,128,71);
-        cloud2 = new TextureRegion(itemsSpriteSheet,0,73,128,71);
-        cloud3 = new TextureRegion(itemsSpriteSheet,0,146,128,71);
-        grass =  new TextureRegion(itemsSpriteSheet,16,396,37,37);
-        bush = new TextureRegion(itemsSpriteSheet,346,187,70,27);
-        cactus = new TextureRegion(itemsSpriteSheet,376,228,38,58);
+        cloud1 = new TextureRegion(itemsSpriteSheet, 0, 0, 128, 71);
+        cloud2 = new TextureRegion(itemsSpriteSheet, 0, 73, 128, 71);
+        cloud3 = new TextureRegion(itemsSpriteSheet, 0, 146, 128, 71);
+        grass = new TextureRegion(itemsSpriteSheet, 16, 396, 37, 37);
+        bush = new TextureRegion(itemsSpriteSheet, 346, 187, 70, 27);
+        cactus = new TextureRegion(itemsSpriteSheet, 376, 228, 38, 58);
         water = new TextureRegion(tilesSpriteSheet, 432, 576, 70, 70);
         lava = new TextureRegion(tilesSpriteSheet, 432, 706, 70, 70);
 
         //GameItems
-        spike = new TextureRegion(itemsSpriteSheet,347,36,70,35);
-        coin = new TextureRegion(itemsSpriteSheet,288,361,70,70);
+        spike = new TextureRegion(itemsSpriteSheet, 347, 36, 70, 35);
+        coin = new TextureRegion(itemsSpriteSheet, 288, 361, 70, 70);
 
         //MenuItems
         logoSheet = loadTexture("images/logoSheet.png");
-        buttonSheet = loadTexture("images/buttonSheet.png");
         logoMain = new TextureRegion(logoSheet, 0, 0, 1024, 256);
         logoShadow = new TextureRegion(logoSheet, 0, 256, 1024, 256);
-        playButton = new TextureRegion(buttonSheet, 0, 0, buttonWidth, buttonHeight);
-        restartButton = new TextureRegion(buttonSheet, 0, buttonHeight*2, buttonWidth, buttonHeight);
-        mainMenuButton = new TextureRegion(buttonSheet, 0, buttonHeight*4, buttonWidth, buttonHeight);
-        creditsButton = new TextureRegion(buttonSheet, 0, buttonHeight*6, buttonWidth, buttonHeight);
-        settingsButton = new TextureRegion(buttonSheet, 0, buttonHeight*8, buttonWidth, buttonHeight);
-        resetButton = new TextureRegion(buttonSheet, 0, buttonHeight*10, buttonWidth, buttonHeight);
-        backButton = new TextureRegion(buttonSheet, 0, buttonHeight*12, buttonWidth, buttonHeight);
-        muteButton = new TextureRegion(itemsSpriteSheet,513,372,64,64);
-        unmuteButton = new TextureRegion(itemsSpriteSheet,513, 444,64,64);
-        customButton = new TextureRegion(buttonSheet, 0, buttonHeight*14, buttonWidth, buttonHeight);
-
-        //Instructions
-        instructions = loadTexture("images/instructions.png");
-        instruction1 = new TextureRegion(instructions, 0, 0, instructions.getWidth(), instructions.getHeight()/3);
-        instruction2 = new TextureRegion(instructions, 0, (instructions.getHeight()/3), instructions.getWidth(), instructions.getHeight()/3);
-        instruction3 = new TextureRegion(instructions, 0, (instructions.getHeight()/3)*2, instructions.getWidth(), instructions.getHeight()/3);
 
         //Music
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
@@ -181,15 +163,15 @@ public class Assets {
         skinGreen = loadSkin("skins/ui-green.json");
     }
 
-    public static Texture loadTexture (String file) {
+    public static Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
     }
 
-    public static Sound loadSound (String file) {
+    public static Sound loadSound(String file) {
         return Gdx.audio.newSound(Gdx.files.internal(file));
     }
 
-    public static Skin loadSkin (String file) {
+    public static Skin loadSkin(String file) {
         return new Skin(Gdx.files.internal(file));
     }
 
@@ -199,8 +181,6 @@ public class Assets {
         jumpSound.dispose();
         deathSound.dispose();
         logoSheet.dispose();
-        buttonSheet.dispose();
-        instructions.dispose();
         LCDFont.dispose();
         ComputerFont.dispose();
         characterSheet.dispose();
