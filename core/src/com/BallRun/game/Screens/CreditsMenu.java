@@ -46,7 +46,7 @@ public class CreditsMenu implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(game.viewport);
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table(Assets.skinGreen);
@@ -58,9 +58,10 @@ public class CreditsMenu implements Screen {
         creditBodyLabel.setAlignment(Align.center);
         creditBodyLabel.setFontScale(1.5f);
 
-        backButton = new MenuButton("Back", MainMenu.class, game);
         Image backImage = new Image(Assets.menuBackground);
         backImage.setSize(Main.CAMERA_WIDTH, Main.CAMERA_HEIGHT);
+
+        backButton = new MenuButton("Back", MainMenu.class, game);
 
         table.setFillParent(true);
         table.add(creditTitleLabel).height(128);

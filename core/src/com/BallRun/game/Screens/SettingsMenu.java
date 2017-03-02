@@ -50,7 +50,7 @@ public class SettingsMenu implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(game.viewport);
         Gdx.input.setInputProcessor(stage);
 
         highscores = new Highscores(-250, 240);

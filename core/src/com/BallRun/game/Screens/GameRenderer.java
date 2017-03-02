@@ -103,7 +103,7 @@ public class GameRenderer extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(game.viewport);
 
         float middleScreenX;
         instructionLabel1 = new Label(INSTRUCTIONS_STRING_1, Assets.skinGreen);
